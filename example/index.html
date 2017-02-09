@@ -1,0 +1,58 @@
+<html>
+<head>
+  <meta charset=utf-8 />
+  <title>Simple example of query run async</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+  <!-- Load Leaflet from CDN-->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet-src.js"></script>
+
+  <!-- Load Esri Leaflet from CDN -->
+  <script src="https://unpkg.com/esri-leaflet@2.0.7"></script>
+  <script src="../build/esri-leaflet-query-run-async.js"></script>
+</head>
+<body>
+
+<script>
+    var makeQueryRunAsync = window["esri-leaflet-query-run-async"].default;
+    makeQueryRunAsync(L.esri.Query);
+    var query = L.esri.query({
+        url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/1"
+    });
+
+    var takeAllQuery = query.where("1=1");
+    takeAllQuery
+        .run(function(error, res){
+            console.log("Response run:");
+            console.log(res);
+        });
+
+    var takeAllQueryAsync = takeAllQuery;
+    var takeAllQueryAsyncCancelled = takeAllQuery;
+    var task = takeAllQueryAsync
+        .runAsync()
+        .then(function(res) {
+            console.log("Response runAsync:");
+            console.log(res);
+        });
+
+    takeAllQueryAsyncCancelled
+        .runAsync()
+        .then(function(res) {
+            console.log("Never hit response runAsync:");
+            console.log(res);
+        })
+        .catch(function(err) {
+            console.log("Cancelled response runAsync:");
+            console.error(err);
+        });
+
+        setTimeout(function() {
+            takeAllQueryAsyncCancelled.cancel({ reason: "because I can"});
+        }, 500);
+
+</script>
+
+</body>
+</html>

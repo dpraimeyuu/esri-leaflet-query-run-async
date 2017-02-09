@@ -1,0 +1,24 @@
+{
+  "name": "esri-leaflet-query-run-async",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./build/esri-leaflet-query-run-async.js",
+  "scripts": {
+    "build:dev": "rimraf build && webpack --config webpack.config.babel.js",
+    "watch": "rimraf build && webpack --watch --config webpack.config.babel.js",
+    "build:prod": "rimraf build && webpack --config webpack.config.babel.js -p",
+    "pretest": "npm run build",
+    "prepublish": "npm run build"
+  },
+  "author": "Damian Płaza",
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "rimraf": "^2.5.4",
+    "webpack": "^1.14.0"
+  }
+}
