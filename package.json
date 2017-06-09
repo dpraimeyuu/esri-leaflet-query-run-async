@@ -4,6 +4,7 @@
   "description": "",
   "main": "./build/esri-leaflet-query-run-async.js",
   "scripts": {
+    "build": "npm run build:prod",
     "build:dev": "rimraf build && webpack --config webpack.config.babel.js",
     "watch": "rimraf build && webpack --watch --config webpack.config.babel.js",
     "build:prod": "rimraf build && webpack --config webpack.config.babel.js -p",
