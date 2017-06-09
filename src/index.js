@@ -18,4 +18,6 @@ function makeQueryRunAsyncFactory({ defaultDeferFactory, runAsync, cancel }) {
 }
 const makeQueryRunAsync = makeQueryRunAsyncFactory({defaultDeferFactory: defaultDeferFactory(Promise), runAsync, cancel});
 export default makeQueryRunAsync;
+const deferFactory = defaultDeferFactory(Promise);
+export { deferFactory };
 
